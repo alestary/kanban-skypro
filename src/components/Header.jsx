@@ -1,31 +1,55 @@
+
+import { useState } from "react";
+
 function Header() {
+  const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
+
+  function handleUserClick() {
+    setIsUserPopupOpen((prev) => !prev);
+  }
+
   return (
     <header className="header">
-      {
-        <div className="container">
-            <div className="header__block">
-                <div className="header__logo _show _light">
-                    <a href="" target="_self"><img src="images/logo.png" alt="logo"/></a>
-                </div>
-                <div className="header__logo _dark">
-                    <a href="" target="_self"><img src="images/logo_dark.png" alt="logo"/></a>
-                </div>
-                <nav className="header__nav">
-                    <button className="header__btn-main-new _hover01" id="btnMainNew"><a href="#popNewCard">Создать новую задачу</a></button>
-                    <a href="#user-set-target" className="header__user _hover02">Ivan Ivanov</a>
-                    <div className="header__pop-user-set pop-user-set" id="user-set-target">
-                        <p className="pop-user-set__name">Ivan Ivanov</p>
-                        <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                        <div className="pop-user-set__theme">
-                            <p>Темная тема</p>
-                            <input type="checkbox" className="checkbox" name="checkbox"/>
-                        </div>
-                        <button type="button" className="_hover03"><a href="#popExit">Выйти</a></button>
-                    </div>
-                </nav>
+      <div className="container">
+        <div className="header__block">
+          <div className="header__logo">
+            <a href="/">Канбан-доска</a>
+          </div>
+
+          <button
+            className="header__user"
+            type="button"
+            onClick={handleUserClick}
+          >
+            <span className="header__user-name">
+              Александра
+            </span>
+          </button>
+
+          <div
+            className="header__pop-user-set"
+            style={{
+              display: isUserPopupOpen ? "block" : "none",
+            }}
+          >
+            <div className="pop-user-set__name">
+              Александра
             </div>
+
+            <div className="pop-user-set__mail">
+              alexandra@example.com
+            </div>
+
+            <button
+              className="pop-user-set__theme"
+              type="button"
+              onClick={handleUserClick}
+            >
+              Закрыть
+            </button>
+          </div>
         </div>
-      }
+      </div>
     </header>
   );
 }
