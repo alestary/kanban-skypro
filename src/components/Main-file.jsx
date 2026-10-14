@@ -1,5 +1,12 @@
 import { cards } from "../../data";
-import Column from "./Column";
+import Column from "./column";
+
+import {
+  MainWrapper,
+  MainBlock,
+  MainContent,
+  MainStatuses,
+} from "./Main-file.styled";
 
 const statuses = [
   "Без статуса",
@@ -11,25 +18,27 @@ const statuses = [
 
 function Main() {
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          {statuses.map((status) => {
-            const columnCards = cards.filter(
-              (card) => card.status === status
-            );
+    <MainWrapper>
+      <MainBlock>
+        <MainContent>
+          <MainStatuses>
+            {statuses.map((status) => {
+              const columnCards = cards.filter(
+                (card) => card.status === status
+              );
 
-            return (
-              <Column
-                key={status}
-                title={status}
-                cards={columnCards}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </main>
+              return (
+                <Column
+                  key={status}
+                  title={status}
+                  cards={columnCards}
+                />
+              );
+            })}
+          </MainStatuses>
+        </MainContent>
+      </MainBlock>
+    </MainWrapper>
   );
 }
 

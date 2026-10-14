@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import GlobalStyle from "./GlobalStyle";
 
 import Header from "./components/Header";
 import Main from "./components/Main-file";
@@ -18,10 +19,10 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-
+      <GlobalStyle />
       {isLoading ? (
         <div className="loading">
-          Данные загружаются
+          Данные загружаются...
         </div>
       ) : (
         <Main />

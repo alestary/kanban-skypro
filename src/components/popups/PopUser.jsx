@@ -1,35 +1,71 @@
+import { useState } from "react";
 
-function PopUser() {
+import {
+  PopUserWrapper,
+  PopUserName,
+  PopUserEmail,
+  PopUserTheme,
+  PopUserThemeLabel,
+  PopUserThemeCheckbox,
+  PopUserExit,
+} from "./PopUser.styled";
+
+function PopUser({
+  user,
+  onLogout,
+  isDarkTheme = false,
+  onThemeChange,
+  onClose,
+}) {
+  const [themeEnabled, setThemeEnabled] = useState(isDarkTheme);
+
+  const handleThemeChange = (event) => {
+    const checked = event.target.checked;
+
+    setThemeEnabled(checked);
+
+    if (onThemeChange) {
+      onThemeChange(checked);
+    }
+  };
+
+  const handleLogout = () => {
+    if (onLogout) {
+      onLogout();
+    }
+
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="pop-exit" id="popExit">
-      <div className="pop-exit__container">
-        <div className="pop-exit__block">
-          <div className="pop-exit__ttl">
-            <h2>Выйти из аккаунта?</h2>
-          </div>
+    <PopUserWrapper>
+      <PopUserName>
+        {user?.name || "Пользователь"}
+      </PopUserName>
 
-          <form className="pop-exit__form" id="formExit" action="#">
-            <div className="pop-exit__form-group">
-              <button
-                type="button"
-                className="pop-exit__exit-yes _hover01"
-                id="exitYes"
-              >
-                <a href="modal/signin.html">Да, выйти</a>
-              </button>
+      <PopUserEmail>
+        {user?.email || ""}
+      </PopUserEmail>
 
-              <button
-                type="button"
-                className="pop-exit__exit-no _hover03"
-                id="exitNo"
-              >
-                <a href="main.html">Нет, остаться</a>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+      <PopUserTheme>
+        <span>Темная тема</span>
+
+        <PopUserThemeLabel>
+          <PopUserThemeCheckbox
+            type="checkbox"
+            checked={themeEnabled}
+            onChange={handleThemeChange}
+            aria-label="Переключить темную тему"
+          />
+        </PopUserThemeLabel>
+      </PopUserTheme>
+
+      <PopUserExit type="button" onClick={handleLogout}>
+        Выйти из аккаунта
+      </PopUserExit>
+    </PopUserWrapper>
   );
 }
 

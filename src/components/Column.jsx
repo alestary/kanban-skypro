@@ -1,18 +1,24 @@
-import Card from "./Card";
+import Card from "./card";
+
+import {
+  ColumnWrapper,
+  ColumnTitle,
+  CardsList,
+} from "./Column.styled";
 
 function Column({ title, cards }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <ColumnWrapper>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
+      </ColumnTitle>
 
-      <div className="cards">
+      <CardsList>
         {cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
-      </div>
-    </div>
+      </CardsList>
+    </ColumnWrapper>
   );
 }
 

@@ -1,56 +1,80 @@
-
 import { useState } from "react";
+
+import {
+  HeaderWrapper,
+  HeaderBlock,
+  HeaderLogo,
+  HeaderNav,
+  HeaderNewButton,
+  HeaderUserArea,
+  HeaderUserButton,
+} from "./Header.styled";
+
+import PopUser from "./popups/PopUser";
 
 function Header() {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  function handleUserClick() {
-    setIsUserPopupOpen((prev) => !prev);
+  const user = {
+    name: "Александра",
+    email: "alexandra@example.com",
+  };
+
+  function toggleUserPopup() {
+    setIsUserPopupOpen((previous) => !previous);
+  }
+
+  function handleLogout() {
+    setIsUserPopupOpen(false);
+  }
+
+  function handleThemeChange(checked) {
+    setIsDarkTheme(checked);
   }
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          <div className="header__logo">
-            <a href="/">Канбан-доска</a>
-          </div>
+    <HeaderWrapper>
+      <HeaderBlock>
+        <HeaderLogo>
+          <a href="/">
+            <img src="/logo.png" alt="Канбан" />
+          </a>
+        </HeaderLogo>
 
-          <button
-            className="header__user"
+        <HeaderNav>
+          <HeaderNewButton
             type="button"
-            onClick={handleUserClick}
-          >
-            <span className="header__user-name">
-              Александра
-            </span>
-          </button>
-
-          <div
-            className="header__pop-user-set"
-            style={{
-              display: isUserPopupOpen ? "block" : "none",
+            onClick={() => {
+              window.location.hash = "popNewCard";
             }}
           >
-            <div className="pop-user-set__name">
-              Александра
-            </div>
+            Создать новую задачу
+          </HeaderNewButton>
 
-            <div className="pop-user-set__mail">
-              alexandra@example.com
-            </div>
-
-            <button
-              className="pop-user-set__theme"
+          <HeaderUserArea>
+            <HeaderUserButton
               type="button"
-              onClick={handleUserClick}
+              aria-expanded={isUserPopupOpen}
+              aria-haspopup="dialog"
+              onClick={toggleUserPopup}
             >
-              Закрыть
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
+              {user.name}
+            </HeaderUserButton>
+
+            {isUserPopupOpen && (
+              <PopUser
+                user={user}
+                onLogout={handleLogout}
+                isDarkTheme={isDarkTheme}
+                onThemeChange={handleThemeChange}
+                onClose={toggleUserPopup}
+              />
+            )}
+          </HeaderUserArea>
+        </HeaderNav>
+      </HeaderBlock>
+    </HeaderWrapper>
   );
 }
 
