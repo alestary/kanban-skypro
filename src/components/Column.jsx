@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from "./Card";
 
 function Column({ title, cards }) {
   return (
@@ -8,12 +8,8 @@ function Column({ title, cards }) {
       </div>
 
       <div className="cards">
-        {cards.map((card, index) => (
-          <Card
-            key={`${title}-${index}`}
-            theme={card.theme}
-            category={card.category}
-          />
+        {cards.map((card) => (
+          <Card key={card.id} card={card} />
         ))}
       </div>
     </div>

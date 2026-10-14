@@ -57,6 +57,82 @@ body {
     margin: 0 auto;
     padding: 0 30px;
 }
+.header__user {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #eaecf5;
+    color: #565eef;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.header__user:hover {
+     background: #dfe3f5;
+}
+
+.header__user:focus-visible {
+    outline: 2px solid #565eef;
+    outline-offset: 3px;
+}
+
+.header__user-name {
+     color: inherit;
+}
+
+.header__block {
+    position: relative;
+}
+
+.header__pop-user-set {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 100;
+    width: 220px;
+    min-height: 160px;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 35px rgba(22, 27, 45, 0.15);
+    text-align: center;
+}
+
+.pop-user-set__name {
+    margin-bottom: 8px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pop-user-set__mail {
+    margin-bottom: 16px;
+    color: #94a6be;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.pop-user-set__theme {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 18px;
+    background: #565eef;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.pop-user-set__theme:hover {
+     background: #33399b;
+}
 
 ._hover01:hover {
     background-color: #33399b;
@@ -851,12 +927,14 @@ body {
     height: 20px;
     margin-bottom: 12px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
 }
 .card__theme {
     width: auto;
-    height: 20px;
     padding: 5px 14px;
     border-radius: 18px;
 }
@@ -885,6 +963,7 @@ body {
     line-height: 18px;
     color: #000000;
     margin-bottom: 10px;
+
 }
 .card__content {
     height: 64px;
