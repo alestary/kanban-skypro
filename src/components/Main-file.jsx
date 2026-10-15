@@ -1,5 +1,6 @@
 import { cards } from "../../data";
 import Column from "./column";
+import { useNavigate } from "react-router-dom";
 
 import {
   MainWrapper,

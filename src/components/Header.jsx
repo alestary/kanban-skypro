@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   HeaderWrapper,
@@ -27,11 +28,13 @@ function Header() {
 
   function handleLogout() {
     setIsUserPopupOpen(false);
+     navigate("/exit");
   }
 
   function handleThemeChange(checked) {
     setIsDarkTheme(checked);
   }
+  const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
@@ -45,9 +48,7 @@ function Header() {
         <HeaderNav>
           <HeaderNewButton
             type="button"
-            onClick={() => {
-              window.location.hash = "popNewCard";
-            }}
+            onClick={() => navigate("/add-card")}
           >
             Создать новую задачу
           </HeaderNewButton>
