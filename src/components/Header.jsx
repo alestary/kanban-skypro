@@ -10,7 +10,7 @@ import {
   HeaderUserArea,
   HeaderUserButton,
 } from "./Header.styled";
-
+import SignInPage from "../pages/SignInPage";
 import PopUser from "./popups/PopUser";
 
 function Header() {
@@ -18,8 +18,8 @@ function Header() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const user = {
-    name: "Александра",
-    email: "alexandra@example.com",
+    name: localStorage.getItem("userName") || "Пользователь",
+    email: localStorage.getItem("userLogin") || "",
   };
 
   function toggleUserPopup() {

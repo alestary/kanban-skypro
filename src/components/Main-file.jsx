@@ -17,6 +17,10 @@ const statuses = [
   "Готово",
 ];
 
+const columnCards = cards.filter(
+  (card) => card.status === status
+);
+
 function Main() {
   return (
     <MainWrapper>

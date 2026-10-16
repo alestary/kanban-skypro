@@ -7,7 +7,9 @@ import Main from "./components/Main-file";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(
+    () => Boolean(localStorage.getItem("token"))
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,7 +21,6 @@ function App() {
 
   return (
     <div className="wrapper">
-      <Header />
       <GlobalStyle />
       {isLoading ? (
         <div className="loading">
