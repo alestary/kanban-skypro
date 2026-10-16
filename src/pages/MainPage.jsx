@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Main from "../components/Main-file";
+import Header from "../components/Header"
 
 const MainPage = () => {
    return (
       <>
+         <Header/>
          <Main />
-         {/* Здесь будут отображаться вложенные маршруты */}
          <Outlet />
       </>
    );

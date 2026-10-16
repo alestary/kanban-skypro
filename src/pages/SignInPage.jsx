@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authStyles } from "./Auth.styled";
+import { signIn } from "../services/auth";
 
 function SignInPage({ setIsAuth }) {
     const navigate = useNavigate();
@@ -9,26 +10,36 @@ function SignInPage({ setIsAuth }) {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    function handleLogin(event) {
+
+    async function handleLogin(event) {
         event.preventDefault();
-
-        const savedLogin = localStorage.getItem("userLogin");
-        const savedPassword = localStorage.getItem("userPassword");
-
-        if (!savedLogin || !savedPassword) {
-        setError("Сначала зарегистрируйся");
-        return;
-        }
-
-        if (login !== savedLogin || password !== savedPassword) {
-        setError("Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.");
-        return;
-        }
-
         setError("");
-        setIsAuth(true);
-        navigate("/", { replace: true });
+
+        if (!login.trim() || !password) {
+            setError("Заполни логин и пароль");
+            return;
+        }
+
+        try {
+            const user = await signIn({ login, password });
+
+            if (!user?.token) {
+            throw new Error("Сервер не вернул токен авторизации");
+            }
+
+            localStorage.setItem("token", user.token);
+
+            if (user.name) {
+            localStorage.setItem("userName", user.name);
+            }
+
+            setIsAuth(true);
+            navigate("/", { replace: true });
+        } catch (error) {
+            setError(error.message || "Не удалось выполнить вход");
+        }
     }
+
 
     return (
         <div style={authStyles.page}>

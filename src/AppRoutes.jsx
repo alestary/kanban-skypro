@@ -30,13 +30,14 @@ function AppRoutes({ isAuth, setIsAuth }) {
         }
       />
       <Route element={<ProtectedRoute isAuth={isAuth} />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/card/:id" element={<CardPage />} />
-        <Route path="/add-card" element={<AddCardPage />} />
-        <Route
-          path="/exit"
-          element={<ExitPage setIsAuth={setIsAuth} />}
-        />
+         <Route path="/" element={<MainPage />} />
+         <Route path="/card/:id" element={<CardPage />} />
+         <Route path="/edit-card/:id" element={<AddCardPage />} />
+         <Route path="/add-card" element={<AddCardPage />} />
+         <Route
+            path="/exit"
+            element={<ExitPage setIsAuth={setIsAuth} />}
+         />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authStyles } from "./Auth.styled";
+import { signUp } from "../services/auth";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -8,40 +9,33 @@ function SignUpPage() {
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+    async function handleSubmit(event) {
+        event.preventDefault();
+        setError("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
+        if (!name.trim() || !login.trim() || !password) {
+            setError("Заполни все поля");
+            return;
+        }
 
-    if (
-      !name.trim() ||
-      !login.trim() ||
-      !password ||
-      !confirmPassword
-    ) {
-      setError("Заполни все поля");
-      return;
+        if (password.length < 6) {
+            setError("Пароль должен содержать минимум 6 символов");
+            return;
+        }
+
+        try {
+            await signUp({
+            name: name.trim(),
+            login: login.trim(),
+            password
+            });
+
+            navigate("/login", { replace: true });
+        } catch (error) {
+            setError(error.message || "Не удалось зарегистрироваться");
+        }
     }
-
-    if (password.length < 6) {
-      setError("Пароль должен содержать минимум 6 символов");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("Пароли не совпадают");
-      return;
-    }
-
-    localStorage.setItem("userName", name.trim());
-    localStorage.setItem("userLogin", login.trim());
-    localStorage.setItem("userPassword", password);
-
-    setError("");
-    navigate("/login", { replace: true });
-  }
-
     return (
         <div style={authStyles.page}>
             <form style={authStyles.form} onSubmit={handleSubmit}>
